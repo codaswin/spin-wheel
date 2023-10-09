@@ -133,9 +133,11 @@ const getWinnings = (rowss, lines, amount) => {
 };
 
 const Game = (startGame = true) => {
+  let podhum = 0;
   while (startGame === true) {
     let balance = deposit();
     while (true) {
+      podhum += 1;
       console.log(`Your balance amount is ${balance}`);
       const lines = bettingLines();
       const amount = bettingAmount(balance, lines);
@@ -151,6 +153,15 @@ const Game = (startGame = true) => {
         break;
       } else if (balance !== 0) {
         console.log(`You earn $ ${winnings}`);
+        if (podhum > 2) {
+          let playAgain = prompt("Do you want to QUIT (y/n)?: ");
+          if (playAgain.toLowerCase() === "y") {
+            break;
+          } else {
+            podhum = 0;
+            continue;
+          }
+        }
         continue;
       }
     }
